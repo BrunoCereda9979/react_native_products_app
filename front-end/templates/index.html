@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Store | Home</title>
+  <link rel="stylesheet" href="../static/styles/index.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <div class="logo-container">
+        <h1>&#128214 Store</h1>
+      </div>
+      <!-- <div class="search-bar-container">
+          <form style="display: none;">
+            <input type="text" id="search-input" class="search-input" placeholder="  Search Product..."/>
+            <button class="btn-search" id="btn-search">Search</button>
+          </form>
+        </div> -->
+      <div class="user-info-container">
+        <button data-modal-target="#modal-login" class="btn btn-login" id="btn-login">Log In</button>
+        <button data-modal-target="#modal-signup" class="btn btn-signup" id="btn-signup">Sign Up</button>
+        <button data-modal-target="#modal-product" class="btn btn-add-product active" id="btn-add-product">+</button>
+      </div>
+    </nav>
+  </header>
+  <section class="content">
+    <!----------------------MAIN SECCION------------------------>
+    <div class="products-list-container">
+      <table class="all-products-table" id="all-products-table">
+        <tr class="all-products-header">
+          <th>Product</th>
+          <th>Price</th>
+          <th colspan="2">Actions</th>
+        </tr>
+        <tbody id="products">
+          <!-- All products here -->
+        </tbody>
+      </table>
+    </div>
+    <div class="pagination-container">
+      <nav>
+        <ul class="pagination"></ul>
+      </nav>
+    </div>
+    <!----------------------LOGIN MODAL------------------------>
+    <div class="modal modal-login" id="modal-login">
+      <div class="modal-login-header">
+        <div class="title">Login Form</div>
+        <button data-close-button class="btn-close">&times;</button>
+      </div>
+      <div class="modal-login-body">
+        <form class="login-form" id="login-form">
+          <input type="mail" id="email-login-input" class="login-input" placeholder="Email" />
+          <input type="password" id="password-login-input" class="login-input" placeholder="Password" />
+          <div class="button-holder">
+            <button class="btn-send-login" id="btn-send-login">Log In</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!----------------------SIGNUP MODAL------------------------>
+    <div class="modal modal-login" id="modal-signup">
+      <div class="modal-login-header">
+        <div class="title">Sign Up Form</div>
+        <button data-close-button class="btn-close">&times;</button>
+      </div>
+      <div class="modal-login-body">
+        <form class="login-form" id="signup-form">
+          <input type="mail" id="signup-email-input" class="login-input" placeholder="Email" />
+          <input type="password" id="signup-password-input" class="login-input" placeholder="Password" />
+          <div class="button-holder">
+            <button class="btn-send-signup" id="btn-send-signup">Sign Up</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!----------------------NEW PRODUCT MODAL------------------------>
+    <div class="modal modal-login" id="modal-product">
+      <div class="modal-login-header">
+        <div class="title">Add Product Form</div>
+        <button data-close-button class="btn-close">&times;</button>
+      </div>
+      <div class="modal-login-body">
+        <form class="login-form" id="add-product-form">
+          <input type="text" id="product-name-input" class="login-input" placeholder="Name" />
+          <input type="text" id="product-price-input" class="login-input" placeholder="Price" />
+          <div class="button-holder">
+            <button class="btn-send-signup" id="btn-send-product">Add Product</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!----------------------EDIT PRODUCT MODAL------------------------>
+    <div class="modal modal-login" id="modal-edit-product">
+      <div class="modal-login-header">
+        <div class="title">Edit Product Form</div>
+        <button data-close-button class="btn-close">&times;</button>
+      </div>
+      <div class="modal-login-body">
+        <form class="login-form" id="edit-product-form">
+          <input type="text" id="edit-product-name-input" class="login-input" placeholder="Name" />
+          <input type="text" id="edit-product-price-input" class="login-input" placeholder="Price" />
+          <div class="button-holder">
+            <button class="btn-send-signup" id="btn-send-edit">Edit Product</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!----------------------OVERLAY------------------------>
+    <div class="" id="overlay"></div>
+    <!----------------------MESSAGES------------------------>
+    <div class="message-container" id="message-container">
+      <div class="message-text-container">
+        <h2 class="message-text" id="message-text"></h2>
+      </div>
+      <button class="btn-close-msg" id="btn-close-msg">&times;</button>
+    </div>
+  </section>
+</body>
+<script type="text/javascript" src="../static/scripts/get-products.js"></script> <!--Traer productos-->
+<script type="text/javascript" src="../static/scripts/modal.js"></script>
+<script type="text/javascript" src="../static/scripts/auth.js"></script>
+<script type="text/javascript" src="../static/scripts/post-products.js"></script>
+<script>
+  const myAuthToken = localStorage.getItem('myAuthToken')
+
+  const messageBox = {
+    messageContainer: $('#message-container'),
+    messageText: $('#message-text'),
+    closeMessageButton: $('#btn-close-msg'),
+  }
+
+  //----------------------EDIT----------------------
+  function editProduct(productId, productName, productPrice) {
+
+    const editProductForm = {
+      overlay: $('#overlay'),
+      modalEditProduct: $('#modal-edit-product'),
+      productNameInput: $('#edit-product-name-input'),
+      productPriceInput: $('#edit-product-price-input'),
+      sendEditButton: $('#btn-send-edit')
+    }
+
+    editProductForm.overlay.addClass('active')
+    editProductForm.modalEditProduct.addClass('active')
+    editProductForm.productNameInput.val(productName)
+    editProductForm.productPriceInput.val(productPrice)
+
+    editProductForm.sendEditButton.click(function (event) {
+
+      deleteProductFormData = {
+        productName: $(editProductForm.productNameInput).val(),
+        productPrice: $(editProductForm.productPriceInput).val()
+      }
+
+      fetch('http://localhost:3000/products/' + productId, {
+          'method': 'PATCH',
+          'headers': {
+            'Content-Type': 'application/json',
+            'token': myAuthToken,
+          },
+          'body': JSON.stringify(deleteProductFormData)
+        })
+        .then(response => response.json())
+        .then(response => {
+          if (response.status == 200) {
+            messageBox.messageContainer.addClass('active success')
+            messageBox.messageText.text(response.message)
+          } else {
+            messageBox.messageContainer.addClass('active error')
+            messageBox.messageText.text(response.message)
+          }
+          console.log(response)
+        })
+        .catch(err => {
+          console.log(err)
+          messageBox.messageContainer.addClass('active error')
+          messageBox.messageText.text(response.message)
+        })
+
+      event.preventDefault()
+    })
+  }
+
+  //----------------------DELETE----------------------//
+  function deleteProduct(productId) {
+    fetch('http://localhost:3000/products/' + productId, {
+        'method': 'DELETE',
+        'headers': {
+          'Content-Type': 'application/json',
+          'token': myAuthToken
+        }
+      })
+      .then(response => response.json())
+      .then(response => {
+        if (response.status == 200) {
+          messageBox.messageContainer.addClass('active success')
+          messageBox.messageText.text(response.message)
+        } else {
+          messageBox.messageContainer.addClass('active error')
+          messageBox.messageText.text(response.message)
+        }
+        console.log(response)
+      })
+      .catch(err => {
+        console.log(err)
+        messageBox.messageContainer.addClass('active error')
+        messageBox.messageText.text('¡Sorry! ¡Could not delete products!')
+      })
+  }
+</script>
+
+</html>

@@ -1,0 +1,384 @@
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	font-family: sans-serif;
+}
+  
+header {
+	background-color: #353b48;
+	width: 100%;
+}
+
+nav {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+}
+
+.logo-container {
+	background-color: transparent;
+	color: #fff;
+	width: 250px;
+	padding: 10px 0px;
+	text-align: center;
+	margin-left: 150px;
+}
+
+.logo-container h1 {
+	font-weight: 100;
+	font-size: 35px;
+}
+
+.search-bar-container {
+	background-color: transparent;
+	/* width: 500px; */
+	min-width: 500px;
+	text-align: center;
+	vertical-align: middle;
+	padding-bottom: 3.2px;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: center;
+	align-items: center;
+}
+
+.search-input {
+	color: #57606f;
+	width: 400px;
+	font-size: 20px;
+	margin-top: 5px;
+	border: none;
+	padding: 3px 0px;
+	border-radius: 5px 0px 0px 5px;
+}
+
+.search-input::placeholder {
+	color: lightgray;
+	font-style: italic;
+}
+
+.btn-search {
+	color: #fff;
+	background-color: #1e90ff;
+	font-size: 20px;
+	font-weight: 100;
+	padding: 3px 10px;
+	border: none;
+	border-radius: 0px 5px 5px 0px;
+}
+
+.btn-search:hover {
+	cursor: pointer;
+}
+
+.user-info-container {
+	width: 280px;
+	text-align: center;
+	padding-bottom: 3.2px;
+	margin-right: 150px;
+	display: flex;
+	flex-flow: row;
+	flex-wrap: nowrap;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.btn {
+	margin-top: 3px;
+	padding: 5px 15px;
+	font-size: 20px;
+}
+
+.btn-login {
+	color: #fff;
+	background-color: transparent;
+	border: 1px solid #fff;
+	border-radius: 5px;
+}
+
+.btn-login:hover {
+	cursor: pointer;
+}
+
+.btn-signup {
+	color: #fff;
+	background-color: #1e90ff;
+	border: 1px solid #1e90ff;
+	border-radius: 5px;
+}
+
+.btn-signup:hover{
+	cursor: pointer;
+}
+
+.btn-add-product {
+	display: none;
+	background-color: transparent;
+	color: #fff;
+	padding: 5px 12px;
+	font-size: 22px;
+	border: 1px solid #fff;
+	border-radius: 100%;
+	transition: 200ms ease;
+}
+
+.btn-add-product:hover {
+	cursor: pointer;
+}
+
+.btn-add-product:focus {
+	outline: none;
+}
+
+.btn-add-product.active {
+	display: block;
+}
+
+/*----------------------LOGIN AND SIGN UP MODAL----------------------*/
+.modal-login {
+	background-color: #353b48;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%) scale(0);
+	border-radius: 10px;
+	z-index: 10;
+	width: 500px;
+	max-width: 800px;
+	transition: 200ms ease-in-out;
+	text-align: center;
+}
+
+.modal-login.active {
+	transform: translate(-50%, -70%) scale(1)
+}
+
+.modal-login-header {
+	color: #fff;
+	padding: 10px 15px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.modal-login-header .title {
+	font-size: 1.5rem;
+	font-weight: 100;
+}
+
+.modal-login-header .btn-close {
+	color: #fff;
+	background: none;
+	cursor: pointer;
+	border: none;
+	outline: none;
+	font-size: 1.75rem;
+}
+
+.modal-login-header .btn-close:hover {
+	color: #DD2C00;
+	transition: 20ms ease;
+}
+
+.modal-login-body {
+	padding: 10px 15px;
+}
+
+#overlay {
+	pointer-events: none;
+	position: fixed;
+	opacity: 0;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.5);
+	transition: 200ms ease-in-out;
+}
+
+#overlay.active{
+	pointer-events: all;
+	opacity: 1;
+}
+
+/*----------------------LOGIN, SIGNUP AND NEW PRODUCT FORMS----------------------*/
+.login-form {
+	display: inline-block;
+}
+
+.login-input {
+	width: 100%;
+  	padding: 12px;
+  	border: 1px solid #ccc;
+  	border-radius: 4px;
+	resize: vertical;
+	margin-bottom: 15px;  
+}
+
+.button-holder {
+	text-align: center;
+	width: 100%;
+}
+
+.btn-send-login, .btn-send-signup {
+	color: #fff;
+	background-color: #2ecc71;
+	padding: 10px 15px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 17px;
+}
+
+.product-image-input {
+	margin-bottom: 20px;
+	color: #fff;
+	font-size: 17px;
+}
+
+/*----------------------MESSAGES----------------------*/
+.message-container {
+	position: fixed;
+	top: 90%;
+	left: 50%;
+	transform: translate(-50%, 150%);
+	z-index: 10;
+	color: #fff;
+	background-color: #2ecc71;
+	width: 600px;
+	padding: 15px;
+	display: flex;
+	flex-flow: row;
+	flex-wrap: nowrap;
+	justify-content: space-evenly;
+	align-items: center;
+	border: none;
+	border-radius: 5px;
+}
+
+.message-container.active {
+	transform: translate(-50%, -70%);
+	transition: 200ms ease;
+}
+
+.message-container.success {
+	background-color: #2ecc71;
+}
+
+.message-container.error {
+	background-color: #e51400;
+}
+
+.message-close {
+	transform: translate(-50%, 150%);
+	transition: 500ms ease;
+}
+
+.message-text-container {
+	width: 100%;
+}
+
+.message-text {
+	font-size: 20px;
+	font-weight: 200;
+	font-style: normal;
+}
+
+.btn-close-msg {
+	color: #fff;
+	background: none;
+	cursor: pointer;
+	border: none;
+	outline: none;
+	font-size: 30px;
+}
+
+/*----------------------PRODUCTS TABLE----------------------*/
+.products-list-container {
+	width: 500px;
+	margin: 0 auto;
+	margin-top: 20px;
+	padding: 10px;
+}
+
+.all-products-table {
+	width: 100%;
+	text-align: center;
+	border-spacing: 0;
+	vertical-align: middle;
+}
+
+.all-products-header {
+	background-color: #353b48;
+	color: #fff;
+}
+
+.all-products-header th {
+	height: 40px;
+	font-weight: 100;
+}
+
+.products-table-body {
+	background-color: lightgray;
+}
+
+.products-table-body td {
+	padding: 10px;
+	font-size: 15px;
+} 
+
+/*----------------------TABLE BUTTONS----------------------*/
+.table-btn {
+	color: #fff;
+	padding: 10px 15px;
+	border: none;
+	border-radius: 5px;
+	font-size: 15px;
+}
+
+.btn-edit-product {
+	background-color: #1e90ff;
+}
+
+.btn-delete-product {
+	background-color: #e51400;
+}
+
+.btn-edit-product, .btn-delete-product:hover {
+	cursor: pointer;
+}
+
+/*----------------------MEDIA QUERIES----------------------*/
+	/* @media (max-width: 600px) {
+		.logo-container {
+			width: 100px;
+			margin-left: 0;
+		}
+		.logo-container h1 {
+			font-weight: 100;
+			font-size: 20px;
+		}
+		.user-info-container {
+			margin-right: 100px;
+		}
+		.btn {
+			margin-top: 3px;
+			padding: 5px 15px;
+			font-size: 15px;
+		}
+		.btn-add-product {
+			padding: 3px 8px;
+			font-size: 15px;
+		}
+	}
+
+	@media (max-width: 420px) {
+		.user-info-container {
+			margin-right: 15px;
+		}
+	} */
